@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.11 on win32)" generated="20240827 20:25:28.980" rpa="false" schemaversion="3">
+<suite id="s1" name="Api robot" source="D:\Api_robot">
+<suite id="s1-s1" name="Testcase Validate Api" source="D:\Api_robot\testcase_validate_api.robot">
+<test id="s1-s1-t1" name="Validate Key &amp; Value on Get User List Request" line="10">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>api_testing</arg>
+<arg>${get_userList_endpoint}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20240827 20:25:29.182" level="INFO">Creating Session using : alias=api_testing, url=https://reqres.in/api/users?page=2, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20240827 20:25:29.181" endtime="20240827 20:25:29.182"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>api_testing</arg>
+<arg>get</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20240827 20:25:29.284" level="INFO">GET Request : url=https://reqres.in/api/get 
+ path_url=/api/get 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20240827 20:25:29.285" level="INFO">GET Response : url=https://reqres.in/api/get 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 27 Aug 2024 13:25:32 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724751366&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=VoN%2B2lfjOZU%2FsnfXYQLP6lXX6PBZkc83Xef1HMoIAb0%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1724751366&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=VoN%2B2lfjOZU%2FsnfXYQLP6lXX6PBZkc83Xef1HMoIAb0%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"2c1-N6Rqerxquq2kgQhL51EiSg4x0R8"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'HIT', 'Age': '6079', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '8b9c635c0c03d014-BKK', 'Content-Encoding': 'gzip'} 
+ body={"page":1,"per_page":6,"total":12,"total_pages":2,"data":[{"id":1,"name":"cerulean","year":2000,"color":"#98B2D1","pantone_value":"15-4020"},{"id":2,"name":"fuchsia rose","year":2001,"color":"#C74375","pantone_value":"17-2031"},{"id":3,"name":"true red","year":2002,"color":"#BF1932","pantone_value":"19-1664"},{"id":4,"name":"aqua sky","year":2003,"color":"#7BC4C4","pantone_value":"14-4811"},{"id":5,"name":"tigerlily","year":2004,"color":"#E2583E","pantone_value":"17-1456"},{"id":6,"name":"blue turquoise","year":2005,"color":"#53B0AE","pantone_value":"15-5217"}],"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}} 
+ </msg>
+<msg timestamp="20240827 20:25:29.285" level="INFO">C:\Users\LEGION\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py:1095: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg timestamp="20240827 20:25:29.285" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240827 20:25:29.183" endtime="20240827 20:25:29.285"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${json_response_getUserList}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.287" level="INFO">${json_response_getUserList} = {'page': 1, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [{'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}, {'id': 2, 'name': 'fuchsia rose', 'year'...</msg>
+<status status="PASS" starttime="20240827 20:25:29.286" endtime="20240827 20:25:29.287"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20240827 20:25:29.288" endtime="20240827 20:25:29.288"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList}</arg>
+<arg>page</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.289" endtime="20240827 20:25:29.289"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${page_is_int}</var>
+<arg>isinstance(${json_response_getUserList['page']}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.291" level="INFO">${page_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.290" endtime="20240827 20:25:29.291"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList}</arg>
+<arg>per_page</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.291" endtime="20240827 20:25:29.292"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${per_page_is_int}</var>
+<arg>isinstance(${json_response_getUserList['per_page']}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.293" level="INFO">${per_page_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.292" endtime="20240827 20:25:29.293"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList}</arg>
+<arg>total</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.294" endtime="20240827 20:25:29.294"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${total_is_int}</var>
+<arg>isinstance(${json_response_getUserList['total']}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.296" level="INFO">${total_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.296" endtime="20240827 20:25:29.296"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList}</arg>
+<arg>total_pages</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.297" endtime="20240827 20:25:29.297"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${total_pages_is_int}</var>
+<arg>isinstance(${json_response_getUserList['total_pages']}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.298" level="INFO">${total_pages_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.298" endtime="20240827 20:25:29.298"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList}</arg>
+<arg>data</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.299" endtime="20240827 20:25:29.300"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${data_is_int}</var>
+<arg>isinstance(${json_response_getUserList['data']}, list)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.301" level="INFO">${data_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.300" endtime="20240827 20:25:29.302"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList}</arg>
+<arg>support</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.302" endtime="20240827 20:25:29.302"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${support_is_int}</var>
+<arg>isinstance(${json_response_getUserList['support']}, object)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.303" level="INFO">${support_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.303" endtime="20240827 20:25:29.304"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList['support']}</arg>
+<arg>url</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.304" endtime="20240827 20:25:29.305"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${support_url}</var>
+<arg>${json_response_getUserList['support']['url']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.305" level="INFO">${support_url} = https://reqres.in/#support-heading</msg>
+<status status="PASS" starttime="20240827 20:25:29.305" endtime="20240827 20:25:29.306"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${support_is_string}</var>
+<arg>isinstance('${support_url}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.306" level="INFO">${support_is_string} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.306" endtime="20240827 20:25:29.306"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList['support']}</arg>
+<arg>text</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.307" endtime="20240827 20:25:29.308"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${support_text}</var>
+<arg>${json_response_getUserList['support']['text']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.309" level="INFO">${support_text} = To keep ReqRes free, contributions towards server costs are appreciated!</msg>
+<status status="PASS" starttime="20240827 20:25:29.308" endtime="20240827 20:25:29.309"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${is_string}</var>
+<arg>isinstance("${support_text}", str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.310" level="INFO">${is_string} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.309" endtime="20240827 20:25:29.310"/>
+</kw>
+<for flavor="IN">
+<var>${user}</var>
+<value>@{json_response_getUserList['data'][0]}</value>
+<iter>
+<var name="${user}">id</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${user}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.312" level="INFO">${value} = id</msg>
+<status status="PASS" starttime="20240827 20:25:29.311" endtime="20240827 20:25:29.312"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList['data'][0]}</arg>
+<arg>${user}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.312" endtime="20240827 20:25:29.313"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${json_response_getUserList['data'][0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.313" level="INFO">${value} = {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.313" endtime="20240827 20:25:29.313"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${my_list}</arg>
+<arg>${value}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.314" endtime="20240827 20:25:29.314"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.311" endtime="20240827 20:25:29.314"/>
+</iter>
+<iter>
+<var name="${user}">name</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${user}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.315" level="INFO">${value} = name</msg>
+<status status="PASS" starttime="20240827 20:25:29.314" endtime="20240827 20:25:29.316"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList['data'][0]}</arg>
+<arg>${user}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.316" endtime="20240827 20:25:29.317"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${json_response_getUserList['data'][0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.318" level="INFO">${value} = {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.317" endtime="20240827 20:25:29.318"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${my_list}</arg>
+<arg>${value}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.318" endtime="20240827 20:25:29.318"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.314" endtime="20240827 20:25:29.318"/>
+</iter>
+<iter>
+<var name="${user}">year</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${user}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.319" level="INFO">${value} = year</msg>
+<status status="PASS" starttime="20240827 20:25:29.319" endtime="20240827 20:25:29.319"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList['data'][0]}</arg>
+<arg>${user}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.319" endtime="20240827 20:25:29.320"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${json_response_getUserList['data'][0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.321" level="INFO">${value} = {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.320" endtime="20240827 20:25:29.321"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${my_list}</arg>
+<arg>${value}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.322" endtime="20240827 20:25:29.322"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.319" endtime="20240827 20:25:29.322"/>
+</iter>
+<iter>
+<var name="${user}">color</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${user}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.323" level="INFO">${value} = color</msg>
+<status status="PASS" starttime="20240827 20:25:29.323" endtime="20240827 20:25:29.323"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList['data'][0]}</arg>
+<arg>${user}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.323" endtime="20240827 20:25:29.324"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${json_response_getUserList['data'][0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.325" level="INFO">${value} = {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.324" endtime="20240827 20:25:29.326"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${my_list}</arg>
+<arg>${value}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.326" endtime="20240827 20:25:29.326"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.322" endtime="20240827 20:25:29.327"/>
+</iter>
+<iter>
+<var name="${user}">pantone_value</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${user}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.327" level="INFO">${value} = pantone_value</msg>
+<status status="PASS" starttime="20240827 20:25:29.327" endtime="20240827 20:25:29.327"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_getUserList['data'][0]}</arg>
+<arg>${user}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.328" endtime="20240827 20:25:29.329"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${value}</var>
+<arg>${json_response_getUserList['data'][0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.330" level="INFO">${value} = {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.329" endtime="20240827 20:25:29.330"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${my_list}</arg>
+<arg>${value}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.330" endtime="20240827 20:25:29.330"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.327" endtime="20240827 20:25:29.330"/>
+</iter>
+<status status="PASS" starttime="20240827 20:25:29.310" endtime="20240827 20:25:29.330"/>
+</for>
+<kw name="Log" library="BuiltIn">
+<arg>${my_list}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240827 20:25:29.331" level="INFO">[{'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}, {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}, {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}, {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}, {'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}]</msg>
+<status status="PASS" starttime="20240827 20:25:29.331" endtime="20240827 20:25:29.332"/>
+</kw>
+<for flavor="IN">
+<var>${item}</var>
+<value>@{my_list}</value>
+<iter>
+<var name="${item}">{'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</var>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.333" endtime="20240827 20:25:29.333"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_id}</var>
+<arg>${item['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.334" level="INFO">${item_id} = 1</msg>
+<status status="PASS" starttime="20240827 20:25:29.333" endtime="20240827 20:25:29.334"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_id_is_int}</var>
+<arg>isinstance(${item_id}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.335" level="INFO">${item_id_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.334" endtime="20240827 20:25:29.335"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>name</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.335" endtime="20240827 20:25:29.336"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_name}</var>
+<arg>${item['name']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.336" level="INFO">${item_name} = cerulean</msg>
+<status status="PASS" starttime="20240827 20:25:29.336" endtime="20240827 20:25:29.337"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_name_is_str}</var>
+<arg>isinstance('${item_name}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.338" level="INFO">${item_name_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.337" endtime="20240827 20:25:29.338"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>year</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.338" endtime="20240827 20:25:29.338"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_year}</var>
+<arg>${item['year']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.340" level="INFO">${item_year} = 2000</msg>
+<status status="PASS" starttime="20240827 20:25:29.339" endtime="20240827 20:25:29.340"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance(${item_year}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.340" level="INFO">${item_year_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.340" endtime="20240827 20:25:29.341"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>color</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.341" endtime="20240827 20:25:29.341"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_color}</var>
+<arg>${item['color']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.342" level="INFO">${item_color} = #98B2D1</msg>
+<status status="PASS" starttime="20240827 20:25:29.341" endtime="20240827 20:25:29.343"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance('${item_color}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.343" level="INFO">${item_year_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.343" endtime="20240827 20:25:29.344"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>pantone_value</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.344" endtime="20240827 20:25:29.344"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_pantone_value}</var>
+<arg>${item['pantone_value']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.345" level="INFO">${item_pantone_value} = 15-4020</msg>
+<status status="PASS" starttime="20240827 20:25:29.344" endtime="20240827 20:25:29.345"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_pantone_value_is_str}</var>
+<arg>isinstance(${item_pantone_value}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.346" level="INFO">${item_pantone_value_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.345" endtime="20240827 20:25:29.346"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.333" endtime="20240827 20:25:29.346"/>
+</iter>
+<iter>
+<var name="${item}">{'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</var>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.347" endtime="20240827 20:25:29.347"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_id}</var>
+<arg>${item['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.348" level="INFO">${item_id} = 1</msg>
+<status status="PASS" starttime="20240827 20:25:29.348" endtime="20240827 20:25:29.349"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_id_is_int}</var>
+<arg>isinstance(${item_id}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.350" level="INFO">${item_id_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.349" endtime="20240827 20:25:29.350"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>name</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.350" endtime="20240827 20:25:29.350"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_name}</var>
+<arg>${item['name']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.351" level="INFO">${item_name} = cerulean</msg>
+<status status="PASS" starttime="20240827 20:25:29.351" endtime="20240827 20:25:29.352"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_name_is_str}</var>
+<arg>isinstance('${item_name}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.352" level="INFO">${item_name_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.352" endtime="20240827 20:25:29.352"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>year</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.353" endtime="20240827 20:25:29.353"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_year}</var>
+<arg>${item['year']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.354" level="INFO">${item_year} = 2000</msg>
+<status status="PASS" starttime="20240827 20:25:29.353" endtime="20240827 20:25:29.354"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance(${item_year}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.355" level="INFO">${item_year_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.354" endtime="20240827 20:25:29.355"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>color</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.355" endtime="20240827 20:25:29.355"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_color}</var>
+<arg>${item['color']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.356" level="INFO">${item_color} = #98B2D1</msg>
+<status status="PASS" starttime="20240827 20:25:29.355" endtime="20240827 20:25:29.356"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance('${item_color}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.357" level="INFO">${item_year_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.356" endtime="20240827 20:25:29.357"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>pantone_value</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.357" endtime="20240827 20:25:29.358"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_pantone_value}</var>
+<arg>${item['pantone_value']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.359" level="INFO">${item_pantone_value} = 15-4020</msg>
+<status status="PASS" starttime="20240827 20:25:29.358" endtime="20240827 20:25:29.359"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_pantone_value_is_str}</var>
+<arg>isinstance(${item_pantone_value}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.359" level="INFO">${item_pantone_value_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.359" endtime="20240827 20:25:29.360"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.346" endtime="20240827 20:25:29.360"/>
+</iter>
+<iter>
+<var name="${item}">{'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</var>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.360" endtime="20240827 20:25:29.361"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_id}</var>
+<arg>${item['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.362" level="INFO">${item_id} = 1</msg>
+<status status="PASS" starttime="20240827 20:25:29.361" endtime="20240827 20:25:29.362"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_id_is_int}</var>
+<arg>isinstance(${item_id}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.363" level="INFO">${item_id_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.362" endtime="20240827 20:25:29.363"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>name</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.363" endtime="20240827 20:25:29.363"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_name}</var>
+<arg>${item['name']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.365" level="INFO">${item_name} = cerulean</msg>
+<status status="PASS" starttime="20240827 20:25:29.364" endtime="20240827 20:25:29.365"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_name_is_str}</var>
+<arg>isinstance('${item_name}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.365" level="INFO">${item_name_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.365" endtime="20240827 20:25:29.366"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>year</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.366" endtime="20240827 20:25:29.366"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_year}</var>
+<arg>${item['year']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.367" level="INFO">${item_year} = 2000</msg>
+<status status="PASS" starttime="20240827 20:25:29.366" endtime="20240827 20:25:29.367"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance(${item_year}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.368" level="INFO">${item_year_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.367" endtime="20240827 20:25:29.368"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>color</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.368" endtime="20240827 20:25:29.369"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_color}</var>
+<arg>${item['color']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.370" level="INFO">${item_color} = #98B2D1</msg>
+<status status="PASS" starttime="20240827 20:25:29.369" endtime="20240827 20:25:29.370"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance('${item_color}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.371" level="INFO">${item_year_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.370" endtime="20240827 20:25:29.371"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>pantone_value</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.371" endtime="20240827 20:25:29.371"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_pantone_value}</var>
+<arg>${item['pantone_value']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.372" level="INFO">${item_pantone_value} = 15-4020</msg>
+<status status="PASS" starttime="20240827 20:25:29.372" endtime="20240827 20:25:29.373"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_pantone_value_is_str}</var>
+<arg>isinstance(${item_pantone_value}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.373" level="INFO">${item_pantone_value_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.373" endtime="20240827 20:25:29.374"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.360" endtime="20240827 20:25:29.374"/>
+</iter>
+<iter>
+<var name="${item}">{'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</var>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.374" endtime="20240827 20:25:29.375"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_id}</var>
+<arg>${item['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.375" level="INFO">${item_id} = 1</msg>
+<status status="PASS" starttime="20240827 20:25:29.375" endtime="20240827 20:25:29.376"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_id_is_int}</var>
+<arg>isinstance(${item_id}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.376" level="INFO">${item_id_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.376" endtime="20240827 20:25:29.376"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>name</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.377" endtime="20240827 20:25:29.377"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_name}</var>
+<arg>${item['name']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.378" level="INFO">${item_name} = cerulean</msg>
+<status status="PASS" starttime="20240827 20:25:29.378" endtime="20240827 20:25:29.379"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_name_is_str}</var>
+<arg>isinstance('${item_name}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.380" level="INFO">${item_name_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.379" endtime="20240827 20:25:29.380"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>year</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.380" endtime="20240827 20:25:29.381"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_year}</var>
+<arg>${item['year']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.382" level="INFO">${item_year} = 2000</msg>
+<status status="PASS" starttime="20240827 20:25:29.381" endtime="20240827 20:25:29.382"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance(${item_year}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.382" level="INFO">${item_year_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.382" endtime="20240827 20:25:29.382"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>color</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.383" endtime="20240827 20:25:29.383"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_color}</var>
+<arg>${item['color']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.384" level="INFO">${item_color} = #98B2D1</msg>
+<status status="PASS" starttime="20240827 20:25:29.383" endtime="20240827 20:25:29.385"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance('${item_color}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.386" level="INFO">${item_year_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.385" endtime="20240827 20:25:29.386"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>pantone_value</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.386" endtime="20240827 20:25:29.386"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_pantone_value}</var>
+<arg>${item['pantone_value']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.387" level="INFO">${item_pantone_value} = 15-4020</msg>
+<status status="PASS" starttime="20240827 20:25:29.387" endtime="20240827 20:25:29.387"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_pantone_value_is_str}</var>
+<arg>isinstance(${item_pantone_value}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.388" level="INFO">${item_pantone_value_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.388" endtime="20240827 20:25:29.388"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.374" endtime="20240827 20:25:29.388"/>
+</iter>
+<iter>
+<var name="${item}">{'id': 1, 'name': 'cerulean', 'year': 2000, 'color': '#98B2D1', 'pantone_value': '15-4020'}</var>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.388" endtime="20240827 20:25:29.389"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_id}</var>
+<arg>${item['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.390" level="INFO">${item_id} = 1</msg>
+<status status="PASS" starttime="20240827 20:25:29.389" endtime="20240827 20:25:29.390"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_id_is_int}</var>
+<arg>isinstance(${item_id}, int)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.391" level="INFO">${item_id_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.390" endtime="20240827 20:25:29.391"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>name</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.392" endtime="20240827 20:25:29.392"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_name}</var>
+<arg>${item['name']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.393" level="INFO">${item_name} = cerulean</msg>
+<status status="PASS" starttime="20240827 20:25:29.392" endtime="20240827 20:25:29.393"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_name_is_str}</var>
+<arg>isinstance('${item_name}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.394" level="INFO">${item_name_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.393" endtime="20240827 20:25:29.394"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>year</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.394" endtime="20240827 20:25:29.395"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_year}</var>
+<arg>${item['year']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.396" level="INFO">${item_year} = 2000</msg>
+<status status="PASS" starttime="20240827 20:25:29.395" endtime="20240827 20:25:29.396"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance(${item_year}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.397" level="INFO">${item_year_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.396" endtime="20240827 20:25:29.397"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>color</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.397" endtime="20240827 20:25:29.398"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_color}</var>
+<arg>${item['color']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.399" level="INFO">${item_color} = #98B2D1</msg>
+<status status="PASS" starttime="20240827 20:25:29.398" endtime="20240827 20:25:29.399"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_year_is_str}</var>
+<arg>isinstance('${item_color}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.400" level="INFO">${item_year_is_str} = True</msg>
+<status status="PASS" starttime="20240827 20:25:29.399" endtime="20240827 20:25:29.400"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${item}</arg>
+<arg>pantone_value</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.400" endtime="20240827 20:25:29.401"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${item_pantone_value}</var>
+<arg>${item['pantone_value']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.402" level="INFO">${item_pantone_value} = 15-4020</msg>
+<status status="PASS" starttime="20240827 20:25:29.401" endtime="20240827 20:25:29.402"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${item_pantone_value_is_str}</var>
+<arg>isinstance(${item_pantone_value}, str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:29.402" level="INFO">${item_pantone_value_is_str} = False</msg>
+<status status="PASS" starttime="20240827 20:25:29.402" endtime="20240827 20:25:29.403"/>
+</kw>
+<status status="PASS" starttime="20240827 20:25:29.388" endtime="20240827 20:25:29.403"/>
+</iter>
+<status status="PASS" starttime="20240827 20:25:29.332" endtime="20240827 20:25:29.403"/>
+</for>
+<doc>Test Get request to endpoint</doc>
+<tag>api</tag>
+<status status="PASS" starttime="20240827 20:25:29.180" endtime="20240827 20:25:29.403"/>
+</test>
+<test id="s1-s1-t2" name="Validate Key &amp; Value on Post Create User Request" line="76">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>api_testing</arg>
+<arg>${post_addUser_endpoint}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20240827 20:25:29.405" level="INFO">Creating Session using : alias=api_testing, url=https://reqres.in/api/users, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20240827 20:25:29.405" endtime="20240827 20:25:29.406"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=FirstName001 Lastname001</arg>
+<arg>job=Automate test</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240827 20:25:29.407" level="INFO">${body} = {'name': 'FirstName001 Lastname001', 'job': 'Automate test'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.406" endtime="20240827 20:25:29.407"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240827 20:25:29.408" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.407" endtime="20240827 20:25:29.408"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>api_testing</arg>
+<arg>/users</arg>
+<arg>${body}</arg>
+<arg>${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20240827 20:25:29.995" level="INFO">POST Request : url=https://reqres.in/api/users/users 
+ path_url=/api/users/users 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=name=FirstName001+Lastname001&amp;job=Automate+test 
+ </msg>
+<msg timestamp="20240827 20:25:29.995" level="INFO">POST Response : url=https://reqres.in/api/users/users 
+ status=201, reason=Created 
+ headers={'Date': 'Tue, 27 Aug 2024 13:25:32 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '107', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724765132&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=M72s2JSe%2F%2Bx27K9gw8TGYFwGF7Dc7iBS%2BF2ngSPry9c%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1724765132&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=M72s2JSe%2F%2Bx27K9gw8TGYFwGF7Dc7iBS%2BF2ngSPry9c%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"6b-I9cfgMovQopKNesyYDTcLr2PcSk"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '8b9c635d7f23d032-BKK'} 
+ body={"name":"FirstName001 Lastname001","job":"Automate test","id":"770","createdAt":"2024-08-27T13:25:32.779Z"} 
+ </msg>
+<msg timestamp="20240827 20:25:29.995" level="INFO">C:\Users\LEGION\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py:1095: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg timestamp="20240827 20:25:29.996" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20240827 20:25:29.408" endtime="20240827 20:25:29.996"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${json_response_postAddUser}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:29.997" level="INFO">${json_response_postAddUser} = {'name': 'FirstName001 Lastname001', 'job': 'Automate test', 'id': '770', 'createdAt': '2024-08-27T13:25:32.779Z'}</msg>
+<status status="PASS" starttime="20240827 20:25:29.996" endtime="20240827 20:25:29.997"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>201</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20240827 20:25:29.998" endtime="20240827 20:25:29.999"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_postAddUser}</arg>
+<arg>name</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:29.999" endtime="20240827 20:25:30.000"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${name}</var>
+<arg>FirstName001 Lastname001</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:30.001" level="INFO">${name} = FirstName001 Lastname001</msg>
+<status status="PASS" starttime="20240827 20:25:30.001" endtime="20240827 20:25:30.001"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${name}</arg>
+<arg>${json_response_postAddUser['name']}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20240827 20:25:30.002" endtime="20240827 20:25:30.003"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_postAddUser}</arg>
+<arg>job</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:30.003" endtime="20240827 20:25:30.003"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${job}</var>
+<arg>Automate test</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240827 20:25:30.004" level="INFO">${job} = Automate test</msg>
+<status status="PASS" starttime="20240827 20:25:30.004" endtime="20240827 20:25:30.004"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${job}</arg>
+<arg>${json_response_postAddUser['job']}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20240827 20:25:30.005" endtime="20240827 20:25:30.005"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_postAddUser}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:30.006" endtime="20240827 20:25:30.006"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${page_is_int}</var>
+<arg>isinstance('${json_response_postAddUser['id']}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:30.007" level="INFO">${page_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:30.006" endtime="20240827 20:25:30.007"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${json_response_postAddUser}</arg>
+<arg>createdAt</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20240827 20:25:30.007" endtime="20240827 20:25:30.008"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${page_is_int}</var>
+<arg>isinstance('${json_response_postAddUser['createdAt']}', str)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240827 20:25:30.009" level="INFO">${page_is_int} = True</msg>
+<status status="PASS" starttime="20240827 20:25:30.008" endtime="20240827 20:25:30.009"/>
+</kw>
+<doc>Test POST request to endpoint</doc>
+<tag>api</tag>
+<status status="PASS" starttime="20240827 20:25:29.404" endtime="20240827 20:25:30.010"/>
+</test>
+<status status="PASS" starttime="20240827 20:25:29.006" endtime="20240827 20:25:30.011"/>
+</suite>
+<status status="PASS" starttime="20240827 20:25:28.984" endtime="20240827 20:25:30.013"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="2" fail="0" skip="0">api</stat>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="Api robot">Api robot</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1" name="Testcase Validate Api">Api robot.Testcase Validate Api</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
